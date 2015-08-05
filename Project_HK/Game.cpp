@@ -4,6 +4,9 @@
 #include "Stage1.h"
 #include "Stage2.h"
 #include "Stage3.h"
+#include "Stage4.h"
+#include "Stage5.h"
+#include "EndStage.h"
 
 #include <stdio.h>
 
@@ -46,6 +49,18 @@ void Game::LoadStage()
 
 	case 2:
 		m_stage = new Stage3;
+		break;
+
+	case 3:
+		m_stage = new Stage4;
+		break;
+
+	case 4:
+		m_stage = new Stage5;
+		break;
+
+	case 5 :
+		m_stage = new EndStage;
 		break;
 
 	default:

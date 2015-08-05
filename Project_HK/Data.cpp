@@ -46,8 +46,6 @@ void Data::ShowData()
 {
 	rapidjson::Value &hero = document["hero"];
 
-	printf("\n");
-
 	printf("------------------------------\n");
 	printf("- 용사 -\n");
 	printf("Level : %d\n", hero["level"]);
@@ -64,6 +62,28 @@ void Data::ShowData()
 
 		printf("- 가방 -\n");
 		printf("골드 : %d", bag["money"].GetInt());
+
+		if (bag.HasMember("weapon"))
+		{
+			rapidjson::Value &weapon = bag["weapon"];
+
+			printf("\n");
+
+			printf("무기 : ");
+			if (weapon.Size())
+			{
+				for (int i = 0; i < weapon.Size(); i++)
+				{
+					printf("%s", weapon[i].GetString());
+
+					if (i + 1 < weapon.Size())
+						printf(", ");
+				}
+			}
+			else
+				printf("없음");
+			printf("\n");
+		}
 	}
 	getchar();
 }
