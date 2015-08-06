@@ -16,7 +16,7 @@ void Data::LoadData()
 	long handle;
 	int result = 1;
 
-	handle = _findfirst("./hero.json", &fd);
+	handle = _findfirst("용사.txt", &fd);
 	if (handle == -1)
 	{
 		InitData();
@@ -24,7 +24,7 @@ void Data::LoadData()
 	}
 
 	char buffer[65536];
-	FILE *file = fopen("hero.json", "r");
+	FILE *file = fopen("용사.txt", "r");
 
 	rapidjson::FileReadStream is(file, buffer, sizeof(buffer));
 	document.ParseStream(is);
@@ -33,7 +33,7 @@ void Data::LoadData()
 
 void Data::SaveData()
 {
-	FILE *file = fopen("hero.json", "w");
+	FILE *file = fopen("용사.txt", "w");
 	char buffer[65536];
 
 	rapidjson::FileWriteStream os(file, buffer, sizeof(buffer));
@@ -44,39 +44,39 @@ void Data::SaveData()
 
 void Data::ShowData()
 {
-	rapidjson::Value &hero = document["hero"];
+	rapidjson::Value &hero = document["용사"];
 
 	printf("------------------------------\n");
 	printf("- 용사 -\n");
-	printf("Level : %d\n", hero["level"]);
-	printf("이동 여부 : %s\n", hero["movable"].GetBool() ? "가능" : "불가능");
-	if (hero.HasMember("location"))
+	printf("Level : %d\n", hero["레벨"]);
+	printf("이동 여부 : %s\n", hero["이동 여부"].GetBool() ? "가능" : "불가능");
+	if (hero.HasMember("장소"))
 	{
-		printf("현재 위치 : %s\n", hero["location"].GetString());
+		printf("현재 위치 : %s\n", hero["장소"].GetString());
 	}
-	if (hero.HasMember("bag"))
+	if (hero.HasMember("가방"))
 	{
-		rapidjson::Value &bag = hero["bag"];
+		rapidjson::Value &bag = hero["가방"];
 
 		printf("\n");
 
 		printf("- 가방 -\n");
-		printf("골드 : %d", bag["money"].GetInt());
+		printf("골드 : %d", bag["골드"].GetInt());
 
-		if (bag.HasMember("weapon"))
+		if (bag.HasMember("장비"))
 		{
-			rapidjson::Value &weapon = bag["weapon"];
+			rapidjson::Value &equipment = bag["장비"];
 
 			printf("\n");
 
-			printf("무기 : ");
-			if (weapon.Size())
+			printf("장비 : ");
+			if (equipment.Size())
 			{
-				for (int i = 0; i < weapon.Size(); i++)
+				for (int i = 0; i < equipment.Size(); i++)
 				{
-					printf("%s", weapon[i].GetString());
+					printf("%s", equipment[i].GetString());
 
-					if (i + 1 < weapon.Size())
+					if (i + 1 < equipment.Size())
 						printf(", ");
 				}
 			}
@@ -101,10 +101,10 @@ void Data::InitData()
 	rapidjson::Value movable;
 	movable = false;
 
-	hero.AddMember("level", level, document.GetAllocator());
-	hero.AddMember("movable", movable, document.GetAllocator());
+	hero.AddMember("레벨", level, document.GetAllocator());
+	hero.AddMember("이동 여부", movable, document.GetAllocator());
 
-	document.AddMember("hero", hero, document.GetAllocator());
+	document.AddMember("용사", hero, document.GetAllocator());
 
 	SaveData();
 }

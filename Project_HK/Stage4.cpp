@@ -12,15 +12,15 @@ Stage4::~Stage4()
 
 void Stage4::Precondition()
 {
-	rapidjson::Value &hero = Data::document["hero"];
-	rapidjson::Value &bag = hero["bag"];
+	rapidjson::Value &hero = Data::document["용사"];
+	rapidjson::Value &bag = hero["가방"];
 
-	if (!bag.HasMember("equipment"))
+	if (!bag.HasMember("장비"))
 	{
 		rapidjson::Value equipment;
 		equipment.SetArray();
 
-		bag.AddMember("equipment", equipment, Data::document.GetAllocator());
+		bag.AddMember("장비", equipment, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -30,11 +30,11 @@ void Stage4::Progress()
 {
 	printf("용사는 상점에 들어가, 50골드 짜리 롱소드를 구입하려 했습니다.\n"); getchar();
 
-	rapidjson::Value &hero = Data::document["hero"];
-	rapidjson::Value &bag = hero["bag"];
-	rapidjson::Value &equipment = bag["equipment"];
+	rapidjson::Value &hero = Data::document["용사"];
+	rapidjson::Value &bag = hero["가방"];
+	rapidjson::Value &equipment = bag["장비"];
 
-	int money = bag["money"].GetInt();
+	int money = bag["골드"].GetInt();
 	auto find_weapon = [&equipment](std::string name)->bool
 	{
 		for (int i = 0; i < equipment.Size(); i++)
@@ -60,11 +60,11 @@ void Stage4::Progress()
 		}
 		else
 		{
-			printf("하지만, 용사는 상점에서 %d골드를 훔쳤고\n마을 경비병들에 의해 감옥에 갇히게 되었습니다.\n", bag["money"].GetInt() - 300); getchar();
+			printf("하지만, 용사는 상점에서 %d골드를 훔쳤고\n마을 경비병들에 의해 감옥에 갇히게 되었습니다.\n", bag["골드"].GetInt() - 300); getchar();
 			printf("End\n"); getchar();
 		}
 	}
-	else if (find_weapon("long sword"))
+	else if (find_weapon("롱소드"))
 	{
 		if (money == 250)
 		{
@@ -77,7 +77,7 @@ void Stage4::Progress()
 
 				Clear();
 			}
-			else if (equipment.Size() == 2 && find_weapon("shield"))
+			else if (equipment.Size() == 2 && find_weapon("방패"))
 			{
 				printf("주인장에게 서비스로 방패도 선물받은 용사는 길을 나섰습니다.\n"); getchar();
 				printf("Stage4 Clear!!\n"); getchar();
@@ -102,7 +102,7 @@ void Stage4::Progress()
 			printf("End\n"); getchar();
 		}
 	}
-	else if (find_weapon("shield"))
+	else if (find_weapon("방패"))
 	{
 		printf("아니, 이 용사는 왜 주인장이 선물로 주려던 방패를 손에 쥐고 있는걸까요???\n"); getchar();
 		printf("Easter Egg\n"); getchar();
@@ -126,13 +126,13 @@ void Stage4::Progress()
 
 void Stage4::Clear()
 {
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
 	if (stageJump)
-		hero["level"].SetInt(hero["level"].GetInt() + 2);
+		hero["레벨"].SetInt(hero["레벨"].GetInt() + 2);
 	else
-		hero["level"].SetInt(hero["level"].GetInt() + 1);
-	hero["location"].SetString("town");
+		hero["레벨"].SetInt(hero["레벨"].GetInt() + 1);
+	hero["장소"].SetString("마을");
 
 	Data::SaveData();
 }

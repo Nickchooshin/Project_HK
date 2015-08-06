@@ -19,9 +19,9 @@ void Stage1::Progress()
 {
 	printf("용사가 나타났습니다.\n"); getchar();
 
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	if (hero["movable"].GetBool())
+	if (hero["이동 여부"].GetBool())
 	{
 		printf("용사는 마을을 향해 걸어가기 시작했습니다.\n"); getchar();
 		printf("Stage1 Clear!!!\n"); getchar();
@@ -39,9 +39,9 @@ void Stage1::Progress()
 
 void Stage1::Clear()
 {
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	hero["level"].SetInt(hero["level"].GetInt() + 1);
+	hero["레벨"].SetInt(hero["레벨"].GetInt() + 1);
 
 	Data::SaveData();
 }

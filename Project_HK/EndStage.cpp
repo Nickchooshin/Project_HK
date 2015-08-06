@@ -26,9 +26,9 @@ void EndStage::Progress()
 
 void EndStage::Clear()
 {
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	hero["location"].SetString("castle");
+	hero["장소"].SetString("castle");
 
 	Data::SaveData();
 }

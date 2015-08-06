@@ -11,12 +11,12 @@ Stage5::~Stage5()
 
 void Stage5::Precondition()
 {
-	rapidjson::Value &hero = Data::document["hero"];
-	rapidjson::Value &bag = hero["bag"];
+	rapidjson::Value &hero = Data::document["용사"];
+	rapidjson::Value &bag = hero["가방"];
 
-	if (hero["location"].GetString() == "forest")
+	if (hero["장소"] != "숲")
 	{
-		hero["location"].SetString("forest");
+		hero["장소"].SetString("숲");
 
 		Data::SaveData();
 	}
@@ -26,9 +26,9 @@ void Stage5::Progress()
 {
 	printf("마을을 나서 숲을 걸어가던 용사는\n"); getchar();
 
-	rapidjson::Value &hero = Data::document["hero"];
-	rapidjson::Value &bag = hero["bag"];
-	rapidjson::Value &equipment = bag["equipment"];
+	rapidjson::Value &hero = Data::document["용사"];
+	rapidjson::Value &bag = hero["가방"];
+	rapidjson::Value &equipment = bag["장비"];
 
 	auto find_weapon = [&equipment](std::string name)->bool
 	{
@@ -41,7 +41,7 @@ void Stage5::Progress()
 		return false;
 	};
 
-	if (!find_weapon("shield"))
+	if (!find_weapon("방패"))
 	{
 		printf("상점 주인의 호의를 거절한 탓인지\n방패가 없어서 수없이 날아오는 화살을 맞고 죽었다.\n"); getchar();
 		printf("시간을 되돌릴 수만 있다면, 그때 방패를 받았을 것이다.\n"); getchar();

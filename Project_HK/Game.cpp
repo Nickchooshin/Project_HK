@@ -35,7 +35,7 @@ void Game::Run()
 
 void Game::LoadStage()
 {
-	int level = Data::document["hero"]["level"].GetInt();
+	int level = Data::document["용사"]["레벨"].GetInt();
 
 	switch (level)
 	{

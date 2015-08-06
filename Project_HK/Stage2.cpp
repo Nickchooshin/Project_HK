@@ -11,14 +11,14 @@ Stage2::~Stage2()
 
 void Stage2::Precondition()
 {
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	if (!hero.HasMember("location"))
+	if (!hero.HasMember("장소"))
 	{
 		rapidjson::Value location;
-		location = "unknown";
+		location = "알 수 없음";
 
-		hero.AddMember("location", location, Data::document.GetAllocator());
+		hero.AddMember("장소", location, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -28,16 +28,16 @@ void Stage2::Progress()
 {
 	printf("용사는 계속해서 길을 걸어가다가...\n"); getchar();
 
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	if (hero["location"] == "town")
+	if (hero["장소"] == "마을")
 	{
 		printf("무사히 마을에 도착할 수 있었습니다.\n"); getchar();
 		printf("Stage2 Clear!!!\n"); getchar();
 
 		Clear();
 	}
-	else if (hero["location"] == "unknown")
+	else if (hero["장소"] == "알 수 없음")
 	{
 		printf("마을에 도착하지 못한 채 조난당해버렸습니다.\n"); getchar();
 		printf("End\n"); getchar();
@@ -53,9 +53,9 @@ void Stage2::Progress()
 
 void Stage2::Clear()
 {
-	rapidjson::Value &hero = Data::document["hero"];
+	rapidjson::Value &hero = Data::document["용사"];
 
-	hero["level"].SetInt(hero["level"].GetInt() + 1);
+	hero["레벨"].SetInt(hero["레벨"].GetInt() + 1);
 
 	Data::SaveData();
 }
