@@ -15,12 +15,12 @@ void Stage4::Precondition()
 	rapidjson::Value &hero = Data::document["hero"];
 	rapidjson::Value &bag = hero["bag"];
 
-	if (!bag.HasMember("weapon"))
+	if (!bag.HasMember("equipment"))
 	{
-		rapidjson::Value weapon;
-		weapon.SetArray();
+		rapidjson::Value equipment;
+		equipment.SetArray();
 
-		bag.AddMember("weapon", weapon, Data::document.GetAllocator());
+		bag.AddMember("equipment", equipment, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -32,21 +32,21 @@ void Stage4::Progress()
 
 	rapidjson::Value &hero = Data::document["hero"];
 	rapidjson::Value &bag = hero["bag"];
-	rapidjson::Value &weapon = bag["weapon"];
+	rapidjson::Value &equipment = bag["equipment"];
 
 	int money = bag["money"].GetInt();
-	auto find_weapon = [&weapon](std::string name)->bool
+	auto find_weapon = [&equipment](std::string name)->bool
 	{
-		for (int i = 0; i < weapon.Size(); i++)
+		for (int i = 0; i < equipment.Size(); i++)
 		{
-			if (weapon[i].GetString() == name)
+			if (equipment[i].GetString() == name)
 				return true;
 		}
 
 		return false;
 	};
 
-	if (weapon.Size() == 0)
+	if (equipment.Size() == 0)
 	{
 		if (money == 300)
 		{
@@ -70,14 +70,14 @@ void Stage4::Progress()
 		{
 			printf("용사는 롱소드를 구입하였고, 남은 소지금은 250골드가 되었습니다\n"); getchar();
 
-			if (weapon.Size() == 1)
+			if (equipment.Size() == 1)
 			{
 				printf("주인장이 서비스로 방패도 주려고 했지만, 용사는 거절하고 길을 나섰습니다.\n"); getchar();
 				printf("Stage4 Clear!!\n"); getchar();
 
 				Clear();
 			}
-			else if (weapon.Size() == 2 && find_weapon("shield"))
+			else if (equipment.Size() == 2 && find_weapon("shield"))
 			{
 				printf("주인장에게 서비스로 방패도 선물받은 용사는 길을 나섰습니다.\n"); getchar();
 				printf("Stage4 Clear!!\n"); getchar();
