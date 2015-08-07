@@ -8,6 +8,8 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/filewritestream.h>
 
+#include "Input.h"
+
 #ifdef _WIN32 || _WIN64
 #include <Windows.h>
 //#elif __linux__ 
@@ -91,7 +93,7 @@ void Data::ShowData()
 			printf("\n");
 		}
 	}
-	getchar();
+	Input();
 }
 
 void Data::OpenDataFile()

@@ -22,6 +22,7 @@
     <ClCompile Include="EndStage.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="EndStage.h">
       <Filter>Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">

@@ -1,6 +1,7 @@
 #include "EndStage.h"
 
 #include "Data.h"
+#include "Input.h"
 
 EndStage::EndStage()
 {
@@ -19,9 +20,9 @@ void EndStage::Ready()
 
 void EndStage::Progress()
 {
-	printf("마을을 나서 숲을 걸어가던 용사는\n"); getchar();
-	printf("마왕의 성에 도착했습니다.\n"); getchar();
-	printf("Game Clear\n"); getchar();
+	printf("마을을 나서 숲을 걸어가던 용사는\n"); Input();
+	printf("마왕의 성에 도착했습니다.\n"); Input();
+	printf("Game Clear\n"); Input();
 
 	Clear();
 

@@ -1,6 +1,8 @@
 #include "Game.h"
 
 #include "Data.h"
+#include "Input.h"
+
 #include "Stage1.h"
 #include "Stage2.h"
 #include "Stage3.h"
@@ -65,7 +67,7 @@ void Game::LoadStage()
 		break;
 
 	default:
-		printf("잘못된 Stage로 접근했거나, 아직 구현되지 않은 Stage 입니다.\n"); getchar();
+		printf("잘못된 Stage로 접근했거나, 아직 구현되지 않은 Stage 입니다.\n"); Input();
 		break;
 	}
 }
