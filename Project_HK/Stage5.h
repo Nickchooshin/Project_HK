@@ -10,6 +10,7 @@ public:
 	~Stage5();
 
 	void Precondition() override;
+	void Ready() override;
 	void Progress() override;
 private:
 	void Clear() override;

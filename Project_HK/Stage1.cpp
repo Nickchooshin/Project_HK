@@ -15,6 +15,10 @@ void Stage1::Precondition()
 {
 }
 
+void Stage1::Ready()
+{
+}
+
 void Stage1::Progress()
 {
 	printf("용사가 나타났습니다.\n"); getchar();

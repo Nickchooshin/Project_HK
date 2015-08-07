@@ -10,6 +10,7 @@ public:
 	{}
 
 	virtual void Precondition() = 0;
+	virtual void Ready() = 0;
 	virtual void Progress() = 0;
 private:
 	virtual void Clear() = 0;

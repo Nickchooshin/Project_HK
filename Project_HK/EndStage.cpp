@@ -13,6 +13,10 @@ void EndStage::Precondition()
 {
 }
 
+void EndStage::Ready()
+{
+}
+
 void EndStage::Progress()
 {
 	printf("마을을 나서 숲을 걸어가던 용사는\n"); getchar();

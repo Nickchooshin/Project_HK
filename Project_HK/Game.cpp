@@ -29,6 +29,7 @@ void Game::Run()
 	if (m_stage)
 	{
 		m_stage->Precondition();
+		m_stage->Ready();
 		m_stage->Progress();
 	}
 }

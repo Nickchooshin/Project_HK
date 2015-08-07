@@ -11,6 +11,10 @@ Stage5::~Stage5()
 
 void Stage5::Precondition()
 {
+}
+
+void Stage5::Ready()
+{
 	rapidjson::Value &hero = Data::document["용사"];
 	rapidjson::Value &bag = hero["가방"];
 
@@ -57,6 +61,7 @@ void Stage5::Progress()
 	}
 
 	Data::ShowData();
+	Data::OpenDataFile();
 }
 
 void Stage5::Clear()

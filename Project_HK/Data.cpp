@@ -8,6 +8,12 @@
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/filewritestream.h>
 
+#ifdef _WIN32 || _WIN64
+#include <Windows.h>
+//#elif __linux__ 
+//#elif TARGET_OS_MAC
+#endif
+
 rapidjson::Document Data::document;
 
 void Data::LoadData()
@@ -86,6 +92,16 @@ void Data::ShowData()
 		}
 	}
 	getchar();
+}
+
+void Data::OpenDataFile()
+{
+#ifdef _WIN32 || _WIN64
+	ShellExecute(NULL, L"open", L"notepad", L"용사.txt", NULL, SW_SHOW);
+#else
+	//_popen("notepad 용사.txt", "w");
+	system("notepad 용사.txt");
+#endif
 }
 
 void Data::InitData()

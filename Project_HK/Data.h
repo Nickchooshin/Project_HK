@@ -13,6 +13,8 @@ public:
 	static void SaveData();
 
 	static void ShowData();
+
+	static void OpenDataFile();
 private:
 	Data();
 	Data(const Data&);

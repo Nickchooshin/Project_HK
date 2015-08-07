@@ -11,6 +11,10 @@ Stage3::~Stage3()
 
 void Stage3::Precondition()
 {
+}
+
+void Stage3::Ready()
+{
 	rapidjson::Value &hero = Data::document["용사"];
 
 	if (!hero.HasMember("가방"))
@@ -59,6 +63,7 @@ void Stage3::Progress()
 	}
 
 	Data::ShowData();
+	Data::OpenDataFile();
 }
 
 void Stage3::Clear()
