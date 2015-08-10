@@ -38,9 +38,12 @@ void Game::Run()
 
 void Game::LoadStage()
 {
-	int level = Data::document["용사"]["레벨"].GetInt();
+	rapidjson::Value &level = Data::document["용사"]["레벨"];
 
-	switch (level)
+	if (!level.IsInt())
+		return;
+
+	switch (level.GetInt())
 	{
 	case 0:
 		m_stage = new Stage1;
@@ -62,7 +65,7 @@ void Game::LoadStage()
 		m_stage = new Stage5;
 		break;
 
-	case 5 :
+	case 5:
 		m_stage = new EndStage;
 		break;
 

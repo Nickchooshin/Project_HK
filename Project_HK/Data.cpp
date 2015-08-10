@@ -18,6 +18,8 @@
 
 rapidjson::Document Data::document;
 
+void PrintValue(rapidjson::Value &value);
+
 void Data::LoadData()
 {
 	_finddata_t fd;
@@ -52,54 +54,16 @@ void Data::SaveData()
 
 void Data::ShowData()
 {
-	rapidjson::Value &hero = document["용사"];
+	printf("------------------------------");
+	PrintValue(document);
 
-	printf("------------------------------\n");
-	printf("- 용사 -\n");
-	printf("Level : %d\n", hero["레벨"]);
-	printf("이동 여부 : %s\n", hero["이동 여부"].GetBool() ? "가능" : "불가능");
-	if (hero.HasMember("장소"))
-	{
-		printf("현재 위치 : %s\n", hero["장소"].GetString());
-	}
-	if (hero.HasMember("가방"))
-	{
-		rapidjson::Value &bag = hero["가방"];
-
-		printf("\n");
-
-		printf("- 가방 -\n");
-		printf("골드 : %d", bag["골드"].GetInt());
-
-		if (bag.HasMember("장비"))
-		{
-			rapidjson::Value &equipment = bag["장비"];
-
-			printf("\n");
-
-			printf("장비 : ");
-			if (equipment.Size())
-			{
-				for (int i = 0; i < equipment.Size(); i++)
-				{
-					printf("%s", equipment[i].GetString());
-
-					if (i + 1 < equipment.Size())
-						printf(", ");
-				}
-			}
-			else
-				printf("없음");
-			printf("\n");
-		}
-	}
 	Input();
 }
 
 void Data::OpenDataFile()
 {
 #ifdef _WIN32 || _WIN64
-	ShellExecute(NULL, L"open", L"notepad", L"용사.txt", NULL, SW_SHOW);
+	ShellExecute(nullptr, L"open", L"notepad", L"용사.txt", nullptr, SW_SHOW);
 #else
 	//_popen("notepad 용사.txt", "w");
 	system("notepad 용사.txt");
@@ -125,4 +89,53 @@ void Data::InitData()
 	document.AddMember("용사", hero, document.GetAllocator());
 
 	SaveData();
+}
+
+void PrintValue(rapidjson::Value &value)
+{
+	rapidjson::Type type = value.GetType();
+
+	if (type == rapidjson::Type::kNumberType)
+	{
+		printf("%d\n", value.GetInt());
+	}
+	else if (type == rapidjson::Type::kStringType)
+	{
+		printf("%s\n", value.GetString());
+	}
+	else if (type == rapidjson::Type::kTrueType)
+	{
+		printf("가능\n");
+	}
+	else if (type == rapidjson::Type::kFalseType)
+	{
+		printf("불가능\n");
+	}
+	else if (type == rapidjson::Type::kArrayType)
+	{
+		for (int i = 0; i < value.Size(); i++)
+		{
+			PrintValue(value[i]);
+			printf(", ");
+		}
+		printf("\n");
+	}
+	else if (type == rapidjson::Type::kObjectType)
+	{
+		for (auto iter = value.MemberBegin(); iter != value.MemberEnd(); iter++)
+		{
+			rapidjson::Value &member = iter->value;
+			std::string name = iter->name.GetString();
+
+			if (member.GetType() == rapidjson::Type::kObjectType || member.GetType() == rapidjson::Type::kArrayType)
+				printf("\n- %s -\n", name.c_str());
+			else
+				printf("%s : ", name.c_str());
+			PrintValue(member);
+		}
+	}
+	else
+	{
+		printf("Null\n");
+	}
 }

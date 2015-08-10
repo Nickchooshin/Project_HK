@@ -24,7 +24,7 @@ void Stage1::Progress()
 
 	rapidjson::Value &hero = Data::document["용사"];
 
-	if (hero["이동 여부"].GetBool())
+	if (hero["이동 여부"] == true)
 	{
 		printf("용사는 마을을 향해 걸어가기 시작했습니다.\n"); Input();
 		printf("Stage1 Clear!!!\n"); Input();
