@@ -97,26 +97,27 @@ void PrintValue(rapidjson::Value &value)
 
 	if (type == rapidjson::Type::kNumberType)
 	{
-		printf("%d\n", value.GetInt());
+		printf("%d", value.GetInt());
 	}
 	else if (type == rapidjson::Type::kStringType)
 	{
-		printf("%s\n", value.GetString());
+		printf("%s", value.GetString());
 	}
 	else if (type == rapidjson::Type::kTrueType)
 	{
-		printf("가능\n");
+		printf("가능");
 	}
 	else if (type == rapidjson::Type::kFalseType)
 	{
-		printf("불가능\n");
+		printf("불가능");
 	}
 	else if (type == rapidjson::Type::kArrayType)
 	{
 		for (int i = 0; i < value.Size(); i++)
 		{
 			PrintValue(value[i]);
-			printf(", ");
+			if (i < value.Size() - 1)
+				printf(", ");
 		}
 		printf("\n");
 	}
@@ -128,14 +129,20 @@ void PrintValue(rapidjson::Value &value)
 			std::string name = iter->name.GetString();
 
 			if (member.GetType() == rapidjson::Type::kObjectType || member.GetType() == rapidjson::Type::kArrayType)
+			{
 				printf("\n- %s -\n", name.c_str());
+				PrintValue(member);
+			}
 			else
+			{
 				printf("%s : ", name.c_str());
-			PrintValue(member);
+				PrintValue(member);
+				printf("\n");
+			}
 		}
 	}
 	else
 	{
-		printf("Null\n");
+		printf("Null");
 	}
 }

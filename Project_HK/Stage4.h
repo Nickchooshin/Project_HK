@@ -12,7 +12,7 @@ public:
 	Stage4();
 	~Stage4();
 
-	void Precondition() override;
+	bool Precondition() override;
 	void Ready() override;
 	void Progress() override;
 private:

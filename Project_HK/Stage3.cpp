@@ -10,8 +10,17 @@ Stage3::~Stage3()
 {
 }
 
-void Stage3::Precondition()
+bool Stage3::Precondition()
 {
+	rapidjson::Value &hero = Data::document["용사"];
+
+	if (hero["이동 여부"] == true &&
+		hero["장소"] == "마을")
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void Stage3::Ready()

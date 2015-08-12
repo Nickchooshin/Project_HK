@@ -10,8 +10,14 @@ Stage2::~Stage2()
 {
 }
 
-void Stage2::Precondition()
+bool Stage2::Precondition()
 {
+	rapidjson::Value &hero = Data::document["용사"];
+
+	if (hero["이동 여부"] == true)
+		return true;
+
+	return false;
 }
 
 void Stage2::Ready()

@@ -30,9 +30,16 @@ void Game::Run()
 
 	if (m_stage)
 	{
-		m_stage->Precondition();
-		m_stage->Ready();
-		m_stage->Progress();
+		if (m_stage->Precondition())
+		{
+			m_stage->Ready();
+			m_stage->Progress();
+		}
+		else
+		{
+			printf("정상적이지 않은 방법으로 Stage에 접근했습니다.\n");
+			Input();
+		}
 	}
 }
 

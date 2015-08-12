@@ -9,7 +9,7 @@ public:
 	Stage1();
 	~Stage1();
 
-	void Precondition() override;
+	bool Precondition() override;
 	void Ready() override;
 	void Progress() override;
 private:

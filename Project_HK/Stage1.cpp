@@ -10,8 +10,9 @@ Stage1::~Stage1()
 {
 }
 
-void Stage1::Precondition()
+bool Stage1::Precondition()
 {
+	return true;
 }
 
 void Stage1::Ready()
