@@ -1,4 +1,4 @@
-#include "EndStage.h"
+ï»¿#include "EndStage.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -12,9 +12,9 @@ EndStage::~EndStage()
 
 bool EndStage::Precondition()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
-	rapidjson::Value &equipment = bag["Àåºñ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
+	rapidjson::Value &equipment = bag["ìž¥ë¹„"];
 	auto find_equipment = [&equipment](std::string name)->bool
 	{
 		for (int i = 0; i < equipment.Size(); i++)
@@ -26,11 +26,11 @@ bool EndStage::Precondition()
 		return false;
 	};
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true &&
-		hero["Àå¼Ò"] == "¸¶À»" &&
-		bag["°ñµå"] == 250 &&
-		find_equipment("·Õ¼Òµå") &&
-		find_equipment("¹æÆÐ"))
+	if (hero["ì´ë™ ì—¬ë¶€"] == true &&
+		hero["ìž¥ì†Œ"] == "ë§ˆì„" &&
+		bag["ê³¨ë“œ"] == 250 &&
+		find_equipment("ë¡±ì†Œë“œ") &&
+		find_equipment("ë°©íŒ¨"))
 	{
 		return true;
 	}
@@ -44,8 +44,8 @@ void EndStage::Ready()
 
 void EndStage::Progress()
 {
-	printf("¸¶À»À» ³ª¼­ ½£À» °É¾î°¡´ø ¿ë»ç´Â\n"); Input();
-	printf("¸¶¿ÕÀÇ ¼º¿¡ µµÂøÇß½À´Ï´Ù.\n"); Input();
+	printf("ë§ˆì„ì„ ë‚˜ì„œ ìˆ²ì„ ê±¸ì–´ê°€ë˜ ìš©ì‚¬ëŠ”\n"); Input();
+	printf("ë§ˆì™•ì˜ ì„±ì— ë„ì°©í–ˆìŠµë‹ˆë‹¤.\n"); Input();
 	printf("Game Clear\n"); Input();
 
 	Clear();
@@ -55,9 +55,9 @@ void EndStage::Progress()
 
 void EndStage::Clear()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	hero["Àå¼Ò"].SetString("¼º");
+	hero["ìž¥ì†Œ"].SetString("ì„±");
 
 	Data::SaveData();
 }

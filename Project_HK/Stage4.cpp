@@ -1,4 +1,4 @@
-#include "Stage4.h"
+ï»¿#include "Stage4.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -13,10 +13,10 @@ Stage4::~Stage4()
 
 bool Stage4::Precondition()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true &&
-		(hero["Àå¼Ò"] == "»óÁ¡" || hero["Àå¼Ò"] == "½£"))
+	if (hero["ì´ë™ ì—¬ë¶€"] == true &&
+		(hero["ì¥ì†Œ"] == "ìƒì " || hero["ì¥ì†Œ"] == "ìˆ²"))
 	{
 		return true;
 	}
@@ -26,15 +26,15 @@ bool Stage4::Precondition()
 
 void Stage4::Ready()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
 
-	if (!bag.HasMember("Àåºñ"))
+	if (!bag.HasMember("ì¥ë¹„"))
 	{
 		rapidjson::Value equipment;
 		equipment.SetArray();
 
-		bag.AddMember("Àåºñ", equipment, Data::document.GetAllocator());
+		bag.AddMember("ì¥ë¹„", equipment, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -42,20 +42,20 @@ void Stage4::Ready()
 
 void Stage4::Progress()
 {
-	printf("¿ë»ç´Â »óÁ¡¿¡ µé¾î°¡, 50°ñµå Â¥¸® ·Õ¼Òµå¸¦ ±¸ÀÔÇÏ·Á Çß½À´Ï´Ù.\n"); Input();
+	printf("ìš©ì‚¬ëŠ” ìƒì ì— ë“¤ì–´ê°€, 50ê³¨ë“œ ì§œë¦¬ ë¡±ì†Œë“œë¥¼ êµ¬ì…í•˜ë ¤ í–ˆìŠµë‹ˆë‹¤.\n"); Input();
 
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
-	rapidjson::Value &equipment = bag["Àåºñ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
+	rapidjson::Value &equipment = bag["ì¥ë¹„"];
 
-	if (hero["Àå¼Ò"] == "½£")
+	if (hero["ì¥ì†Œ"] == "ìˆ²")
 	{
-		printf("ÇÏÁö¸¸, ½£¿¡ »óÁ¡ÀÌ ÀÖÀ» ¸® ¾ø¾ú½À´Ï´Ù.\n"); Input();
+		printf("í•˜ì§€ë§Œ, ìˆ²ì— ìƒì ì´ ìˆì„ ë¦¬ ì—†ì—ˆìŠµë‹ˆë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
 	else
 	{
-		int money = bag["°ñµå"].GetInt();
+		int money = bag["ê³¨ë“œ"].GetInt();
 		auto find_equipment = [&equipment](std::string name)->bool
 		{
 			for (int i = 0; i < equipment.Size(); i++)
@@ -71,36 +71,36 @@ void Stage4::Progress()
 		{
 			if (money == 300)
 			{
-				printf("ÇÏÁö¸¸, »óÁ¡ ÁÖÀÎÀº ¹°°ÇÀ» ÆÈ·Á ÇÏÁö ¾Ê¾Ò½À´Ï´Ù.\n"); Input();
+				printf("í•˜ì§€ë§Œ, ìƒì  ì£¼ì¸ì€ ë¬¼ê±´ì„ íŒ”ë ¤ í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 			else if (money < 300)
 			{
-				printf("ÇÏÁö¸¸, »óÁ¡ ÁÖÀÎÀº ¿ë»ç¸¦ ±âÀı½ÃÅ°°í µ·À» ÈÉÃÄ°¬½À´Ï´Ù.\n"); Input();
+				printf("í•˜ì§€ë§Œ, ìƒì  ì£¼ì¸ì€ ìš©ì‚¬ë¥¼ ê¸°ì ˆì‹œí‚¤ê³  ëˆì„ í›”ì³ê°”ìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 			else
 			{
-				printf("ÇÏÁö¸¸, ¿ë»ç´Â »óÁ¡¿¡¼­ %d°ñµå¸¦ ÈÉÃÆ°í\n¸¶À» °æºñº´µé¿¡ ÀÇÇØ °¨¿Á¿¡ °¤È÷°Ô µÇ¾ú½À´Ï´Ù.\n", bag["°ñµå"].GetInt() - 300); Input();
+				printf("í•˜ì§€ë§Œ, ìš©ì‚¬ëŠ” ìƒì ì—ì„œ %dê³¨ë“œë¥¼ í›”ì³¤ê³ \në§ˆì„ ê²½ë¹„ë³‘ë“¤ì— ì˜í•´ ê°ì˜¥ì— ê°‡íˆê²Œ ë˜ì—ˆìŠµë‹ˆë‹¤.\n", bag["ê³¨ë“œ"].GetInt() - 300); Input();
 				printf("End\n"); Input();
 			}
 		}
-		else if (find_equipment("·Õ¼Òµå"))
+		else if (find_equipment("ë¡±ì†Œë“œ"))
 		{
 			if (money == 250)
 			{
-				printf("¿ë»ç´Â ·Õ¼Òµå¸¦ ±¸ÀÔÇÏ¿´°í, ³²Àº ¼ÒÁö±İÀº 250°ñµå°¡ µÇ¾ú½À´Ï´Ù\n"); Input();
+				printf("ìš©ì‚¬ëŠ” ë¡±ì†Œë“œë¥¼ êµ¬ì…í•˜ì˜€ê³ , ë‚¨ì€ ì†Œì§€ê¸ˆì€ 250ê³¨ë“œê°€ ë˜ì—ˆìŠµë‹ˆë‹¤\n"); Input();
 
 				if (equipment.Size() == 1)
 				{
-					printf("ÁÖÀÎÀåÀÌ ¼­ºñ½º·Î ¹æÆĞµµ ÁÖ·Á°í ÇßÁö¸¸, ¿ë»ç´Â °ÅÀıÇÏ°í ±æÀ» ³ª¼¹½À´Ï´Ù.\n"); Input();
+					printf("ì£¼ì¸ì¥ì´ ì„œë¹„ìŠ¤ë¡œ ë°©íŒ¨ë„ ì£¼ë ¤ê³  í–ˆì§€ë§Œ, ìš©ì‚¬ëŠ” ê±°ì ˆí•˜ê³  ê¸¸ì„ ë‚˜ì„°ìŠµë‹ˆë‹¤.\n"); Input();
 					printf("Stage4 Clear!!\n"); Input();
 
 					Clear();
 				}
-				else if (equipment.Size() == 2 && find_equipment("¹æÆĞ"))
+				else if (equipment.Size() == 2 && find_equipment("ë°©íŒ¨"))
 				{
-					printf("ÁÖÀÎÀå¿¡°Ô ¼­ºñ½º·Î ¹æÆĞµµ ¼±¹°¹ŞÀº ¿ë»ç´Â ±æÀ» ³ª¼¹½À´Ï´Ù.\n"); Input();
+					printf("ì£¼ì¸ì¥ì—ê²Œ ì„œë¹„ìŠ¤ë¡œ ë°©íŒ¨ë„ ì„ ë¬¼ë°›ì€ ìš©ì‚¬ëŠ” ê¸¸ì„ ë‚˜ì„°ìŠµë‹ˆë‹¤.\n"); Input();
 					printf("Stage4 Clear!!\n"); Input();
 
 					stageJump = true;
@@ -108,36 +108,36 @@ void Stage4::Progress()
 				}
 				else
 				{
-					printf("ÇÏÁö¸¸, ´Ù¸¥ ¹°°ÇÀ» ¸ô·¡ ÈÉÄ¡·Á´Ù°¡ »óÁ¡ ÁÖÀÎ¿¡°Ô µéÄ×½À´Ï´Ù.\n"); Input();
+					printf("í•˜ì§€ë§Œ, ë‹¤ë¥¸ ë¬¼ê±´ì„ ëª°ë˜ í›”ì¹˜ë ¤ë‹¤ê°€ ìƒì  ì£¼ì¸ì—ê²Œ ë“¤ì¼°ìŠµë‹ˆë‹¤.\n"); Input();
 					printf("End\n"); Input();
 				}
 			}
 			else if (money > 250)
 			{
-				printf("ÇÏÁö¸¸, ¿ë»ç´Â Á¦ °ªÀ» Ä¡¸£Áö ¾Ê°í ·Õ¼Òµå¸¦ µé°í ¾îµğ·Ğ°¡ »ç¶óÁ³½À´Ï´Ù.\n"); Input();
+				printf("í•˜ì§€ë§Œ, ìš©ì‚¬ëŠ” ì œ ê°’ì„ ì¹˜ë¥´ì§€ ì•Šê³  ë¡±ì†Œë“œë¥¼ ë“¤ê³  ì–´ë””ë¡ ê°€ ì‚¬ë¼ì¡ŒìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 			else
 			{
-				printf("¸ÛÃ»ÇÑ ¿ë»ç´Â ÀÚ½ÅÀÌ ¼Ó´ÂÁÙµµ ¸ğ¸£°í ´õ ºñ½Ñ°ªÀ» ÁÖ°í\n·Õ¼Òµå¸¦ ±¸¸ÅÇß½À´Ï´Ù.\n"); Input();
+				printf("ë©ì²­í•œ ìš©ì‚¬ëŠ” ìì‹ ì´ ì†ëŠ”ì¤„ë„ ëª¨ë¥´ê³  ë” ë¹„ì‹¼ê°’ì„ ì£¼ê³ \në¡±ì†Œë“œë¥¼ êµ¬ë§¤í–ˆìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 		}
-		else if (find_equipment("¹æÆĞ"))
+		else if (find_equipment("ë°©íŒ¨"))
 		{
-			printf("¾Æ´Ï, ÀÌ ¿ë»ç´Â ¿Ö ÁÖÀÎÀåÀÌ ¼±¹°·Î ÁÖ·Á´ø ¹æÆĞ¸¦ ¼Õ¿¡ Áã°í ÀÖ´Â°É±î¿ä???\n"); Input();
+			printf("ì•„ë‹ˆ, ì´ ìš©ì‚¬ëŠ” ì™œ ì£¼ì¸ì¥ì´ ì„ ë¬¼ë¡œ ì£¼ë ¤ë˜ ë°©íŒ¨ë¥¼ ì†ì— ì¥ê³  ìˆëŠ”ê±¸ê¹Œìš”???\n"); Input();
 			printf("Easter Egg\n"); Input();
 		}
 		else
 		{
 			if (money >= 300)
 			{
-				printf("ÇÑÂüÀ» µÑ·¯º¸´ø ¿ë»ç´Â, ¾û¶×ÇÑ ¹°°ÇÀ» ÈÉÄ¡°í ´Ş¾Æ³ª ¹ö·È½À´Ï´Ù.\n"); Input();
+				printf("í•œì°¸ì„ ë‘˜ëŸ¬ë³´ë˜ ìš©ì‚¬ëŠ”, ì—‰ëš±í•œ ë¬¼ê±´ì„ í›”ì¹˜ê³  ë‹¬ì•„ë‚˜ ë²„ë ¸ìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 			else
 			{
-				printf("ÇÑÂüÀ» µÑ·¯º¸´ø ¿ë»ç´Â, °á±¹ ¾û¶×ÇÑ ¹°°ÇÀ» ±¸¸ÅÇØ ¹ö¸®°í ¸»¾Ò½À´Ï´Ù.\n"); Input();
+				printf("í•œì°¸ì„ ë‘˜ëŸ¬ë³´ë˜ ìš©ì‚¬ëŠ”, ê²°êµ­ ì—‰ëš±í•œ ë¬¼ê±´ì„ êµ¬ë§¤í•´ ë²„ë¦¬ê³  ë§ì•˜ìŠµë‹ˆë‹¤.\n"); Input();
 				printf("End\n"); Input();
 			}
 		}
@@ -149,15 +149,15 @@ void Stage4::Progress()
 
 void Stage4::Clear()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
 	if (stageJump)
 	{
-		hero["·¹º§"].SetInt(hero["·¹º§"].GetInt() + 2);
-		hero["Àå¼Ò"].SetString("¸¶À»");
+		hero["ë ˆë²¨"].SetInt(hero["ë ˆë²¨"].GetInt() + 2);
+		hero["ì¥ì†Œ"].SetString("ë§ˆì„");
 	}
 	else
-		hero["·¹º§"].SetInt(hero["·¹º§"].GetInt() + 1);
+		hero["ë ˆë²¨"].SetInt(hero["ë ˆë²¨"].GetInt() + 1);
 
 	Data::SaveData();
 }

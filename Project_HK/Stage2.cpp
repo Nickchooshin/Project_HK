@@ -1,4 +1,4 @@
-#include "Stage2.h"
+ï»¿#include "Stage2.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -12,9 +12,9 @@ Stage2::~Stage2()
 
 bool Stage2::Precondition()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true)
+	if (hero["ì´ë™ ì—¬ë¶€"] == true)
 		return true;
 
 	return false;
@@ -22,14 +22,14 @@ bool Stage2::Precondition()
 
 void Stage2::Ready()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (!hero.HasMember("Àå¼Ò"))
+	if (!hero.HasMember("ì¥ì†Œ"))
 	{
 		rapidjson::Value location;
-		location = "¾Ë ¼ö ¾øÀ½";
+		location = "ì•Œ ìˆ˜ ì—†ìŒ";
 
-		hero.AddMember("Àå¼Ò", location, Data::document.GetAllocator());
+		hero.AddMember("ì¥ì†Œ", location, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -37,25 +37,25 @@ void Stage2::Ready()
 
 void Stage2::Progress()
 {
-	printf("¿ë»ç´Â °è¼ÓÇØ¼­ ±æÀ» °É¾î°¡´Ù°¡...\n"); Input();
+	printf("ìš©ì‚¬ëŠ” ê³„ì†í•´ì„œ ê¸¸ì„ ê±¸ì–´ê°€ë‹¤ê°€...\n"); Input();
 
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (hero["Àå¼Ò"] == "¸¶À»")
+	if (hero["ì¥ì†Œ"] == "ë§ˆì„")
 	{
-		printf("¹«»çÈ÷ ¸¶À»¿¡ µµÂøÇÒ ¼ö ÀÖ¾ú½À´Ï´Ù.\n"); Input();
+		printf("ë¬´ì‚¬íˆ ë§ˆì„ì— ë„ì°©í•  ìˆ˜ ìˆì—ˆìŠµë‹ˆë‹¤.\n"); Input();
 		printf("Stage2 Clear!!!\n"); Input();
 
 		Clear();
 	}
-	else if (hero["Àå¼Ò"] == "¾Ë ¼ö ¾øÀ½")
+	else if (hero["ì¥ì†Œ"] == "ì•Œ ìˆ˜ ì—†ìŒ")
 	{
-		printf("¸¶À»¿¡ µµÂøÇÏÁö ¸øÇÑ Ã¤ Á¶³­´çÇØ¹ö·È½À´Ï´Ù.\n"); Input();
+		printf("ë§ˆì„ì— ë„ì°©í•˜ì§€ ëª»í•œ ì±„ ì¡°ë‚œë‹¹í•´ë²„ë ¸ìŠµë‹ˆë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
 	else
 	{
-		printf("º»·¡ ¸ñÀûÁöÀÎ ¸¶À»°ú´Â ´Ù¸¥, ÀÌ»óÇÑ °÷¿¡ µµÂøÇØ ¹ö·È½À´Ï´Ù.\n"); Input();
+		printf("ë³¸ë˜ ëª©ì ì§€ì¸ ë§ˆì„ê³¼ëŠ” ë‹¤ë¥¸, ì´ìƒí•œ ê³³ì— ë„ì°©í•´ ë²„ë ¸ìŠµë‹ˆë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
 
@@ -65,9 +65,9 @@ void Stage2::Progress()
 
 void Stage2::Clear()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	hero["·¹º§"].SetInt(hero["·¹º§"].GetInt() + 1);
+	hero["ë ˆë²¨"].SetInt(hero["ë ˆë²¨"].GetInt() + 1);
 
 	Data::SaveData();
 }

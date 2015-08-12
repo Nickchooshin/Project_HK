@@ -1,4 +1,4 @@
-#include "Stage5.h"
+ï»¿#include "Stage5.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -12,9 +12,9 @@ Stage5::~Stage5()
 
 bool Stage5::Precondition()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
-	rapidjson::Value &equipment = bag["Àåºñ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
+	rapidjson::Value &equipment = bag["ì¥ë¹„"];
 	auto find_equipment = [&equipment](std::string name)->bool
 	{
 		for (int i = 0; i < equipment.Size(); i++)
@@ -26,10 +26,10 @@ bool Stage5::Precondition()
 		return false;
 	};
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true &&
-		(hero["Àå¼Ò"] == "¸¶À»" || hero["Àå¼Ò"] == "½£") &&
-		bag["°ñµå"] == 250 &&
-		find_equipment("·Õ¼Òµå"))
+	if (hero["ì´ë™ ì—¬ë¶€"] == true &&
+		(hero["ì¥ì†Œ"] == "ë§ˆì„" || hero["ì¥ì†Œ"] == "ìˆ²") &&
+		bag["ê³¨ë“œ"] == 250 &&
+		find_equipment("ë¡±ì†Œë“œ"))
 	{
 		return true;
 	}
@@ -39,12 +39,12 @@ bool Stage5::Precondition()
 
 void Stage5::Ready()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
 
-	if (hero["Àå¼Ò"] != "½£")
+	if (hero["ì¥ì†Œ"] != "ìˆ²")
 	{
-		hero["Àå¼Ò"].SetString("½£");
+		hero["ì¥ì†Œ"].SetString("ìˆ²");
 
 		Data::SaveData();
 	}
@@ -52,11 +52,11 @@ void Stage5::Ready()
 
 void Stage5::Progress()
 {
-	printf("¸¶À»À» ³ª¼­ ½£À» °É¾î°¡´ø ¿ë»ç´Â\n"); Input();
+	printf("ë§ˆì„ì„ ë‚˜ì„œ ìˆ²ì„ ê±¸ì–´ê°€ë˜ ìš©ì‚¬ëŠ”\n"); Input();
 
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
-	rapidjson::Value &equipment = bag["Àåºñ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
+	rapidjson::Value &equipment = bag["ì¥ë¹„"];
 
 	auto find_equipment = [&equipment](std::string name)->bool
 	{
@@ -69,18 +69,18 @@ void Stage5::Progress()
 		return false;
 	};
 
-	if (!find_equipment("¹æÆĞ"))
+	if (!find_equipment("ë°©íŒ¨"))
 	{
-		printf("»óÁ¡ ÁÖÀÎÀÇ È£ÀÇ¸¦ °ÅÀıÇÑ Å¿ÀÎÁö\n¹æÆĞ°¡ ¾ø¾î¼­ ¼ö¾øÀÌ ³¯¾Æ¿À´Â È­»ìÀ» ¸Â°í Á×¾ú´Ù.\n"); Input();
-		printf("½Ã°£À» µÇµ¹¸± ¼ö¸¸ ÀÖ´Ù¸é, ±×¶§ ¹æÆĞ¸¦ ¹Ş¾ÒÀ» °ÍÀÌ´Ù.\n"); Input();
+		printf("ìƒì  ì£¼ì¸ì˜ í˜¸ì˜ë¥¼ ê±°ì ˆí•œ íƒ“ì¸ì§€\në°©íŒ¨ê°€ ì—†ì–´ì„œ ìˆ˜ì—†ì´ ë‚ ì•„ì˜¤ëŠ” í™”ì‚´ì„ ë§ê³  ì£½ì—ˆë‹¤.\n"); Input();
+		printf("ì‹œê°„ì„ ë˜ëŒë¦´ ìˆ˜ë§Œ ìˆë‹¤ë©´, ê·¸ë•Œ ë°©íŒ¨ë¥¼ ë°›ì•˜ì„ ê²ƒì´ë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
 	else
 	{
-		printf("ÀÚ½ÅÀÇ ¼Õ¿¡ ¹æ±İ Àü »óÁ¡ÀÇ ¹æÆĞ°¡ µé·ÁÀÖ´Ù´Â °ÍÀ» ´«Ä¡Ã«´Ù.\n"); Input();
-		printf("±× ¼ø°£!!!\n"); Input();
-		printf("¿ë»ç´Â ¼ö¾øÀÌ ³¯¾Æ¿À´Â È­»ìÀ» ¸Â°í Á×¾ú´Ù.\n"); Input();
-		printf("ºĞ¸í '¹æÆĞ¸¦ µé°í ¿Â ±â¾ïÀÌ ¾ø¾ú´Ù'°í ÀÇ¹®½ÉÀ» Ç°À¸¸ç...\n"); Input();
+		printf("ìì‹ ì˜ ì†ì— ë°©ê¸ˆ ì „ ìƒì ì˜ ë°©íŒ¨ê°€ ë“¤ë ¤ìˆë‹¤ëŠ” ê²ƒì„ ëˆˆì¹˜ì±˜ë‹¤.\n"); Input();
+		printf("ê·¸ ìˆœê°„!!!\n"); Input();
+		printf("ìš©ì‚¬ëŠ” ìˆ˜ì—†ì´ ë‚ ì•„ì˜¤ëŠ” í™”ì‚´ì„ ë§ê³  ì£½ì—ˆë‹¤.\n"); Input();
+		printf("ë¶„ëª… 'ë°©íŒ¨ë¥¼ ë“¤ê³  ì˜¨ ê¸°ì–µì´ ì—†ì—ˆë‹¤'ê³  ì˜ë¬¸ì‹¬ì„ í’ˆìœ¼ë©°...\n"); Input();
 		printf("End\n"); Input();
 	}
 

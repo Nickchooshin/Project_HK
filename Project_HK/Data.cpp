@@ -1,18 +1,19 @@
-#include "Data.h"
+Ôªø#include "Data.h"
 
 #include <stdio.h>
-#include <io.h>
-#include <rapidjson/document.h>
-#include <rapidjson/prettywriter.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/filereadstream.h>
-#include <rapidjson/filewritestream.h>
+#include "../rapidjson/include/rapidjson/document.h"
+#include "../rapidjson/include/rapidjson/prettywriter.h"
+#include "../rapidjson/include/rapidjson/stringbuffer.h"
+#include "../rapidjson/include/rapidjson/filereadstream.h"
+#include "../rapidjson/include/rapidjson/filewritestream.h"
 
 #include "Input.h"
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
+#include <io.h>
 #include <Windows.h>
-//#elif __linux__ 
+#elif defined(__linux__)
+#include <dirent.h>
 //#elif TARGET_OS_MAC
 #endif
 
@@ -22,19 +23,50 @@ void PrintValue(rapidjson::Value &value);
 
 void Data::LoadData()
 {
+#if defined(_WIN32) || defined(_WIN64)
 	_finddata_t fd;
 	long handle;
 	int result = 1;
 
-	handle = _findfirst("øÎªÁ.txt", &fd);
+	handle = _findfirst("Ïö©ÏÇ¨.txt", &fd);
 	if (handle == -1)
 	{
 		InitData();
 		return;
 	}
+#elif defined(__linux__)
+	dirent **namelist;
+	int n;
+
+	n = scandir(".", &namelist, 0, alphasort);
+
+	if (n < 0)
+	{
+		InitData();
+		return;
+	}
+
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		if (strcmp(namelist[i]->d_name, "Ïö©ÏÇ¨.txt") == 0)
+		{
+			free(namelist[n]);
+			break;
+		}
+		free(namelist[n]);
+	}
+	free(namelist);
+
+	if (i == n)
+	{
+		InitData();
+		return;
+	}
+#endif
 
 	char buffer[65536];
-	FILE *file = fopen("øÎªÁ.txt", "r");
+	FILE *file = fopen("Ïö©ÏÇ¨.txt", "r");
 
 	rapidjson::FileReadStream is(file, buffer, sizeof(buffer));
 	document.ParseStream(is);
@@ -43,7 +75,7 @@ void Data::LoadData()
 
 void Data::SaveData()
 {
-	FILE *file = fopen("øÎªÁ.txt", "w");
+	FILE *file = fopen("Ïö©ÏÇ¨.txt", "w");
 	char buffer[65536];
 
 	rapidjson::FileWriteStream os(file, buffer, sizeof(buffer));
@@ -62,11 +94,11 @@ void Data::ShowData()
 
 void Data::OpenDataFile()
 {
-#ifdef _WIN32 || _WIN64
-	ShellExecute(nullptr, L"open", L"notepad", L"øÎªÁ.txt", nullptr, SW_SHOW);
+#if defined(_WIN32) || defined(_WIN64)
+	ShellExecute(nullptr, L"open", L"notepad", L"Ïö©ÏÇ¨.txt", nullptr, SW_SHOW);
 #else
-	//_popen("notepad øÎªÁ.txt", "w");
-	system("notepad øÎªÁ.txt");
+	//_popen("vi Ïö©ÏÇ¨.txt", "w");
+	system("vi Ïö©ÏÇ¨.txt");
 #endif
 }
 
@@ -83,10 +115,10 @@ void Data::InitData()
 	rapidjson::Value movable;
 	movable = false;
 
-	hero.AddMember("∑π∫ß", level, document.GetAllocator());
-	hero.AddMember("¿Ãµø ø©∫Œ", movable, document.GetAllocator());
+	hero.AddMember("Î†àÎ≤®", level, document.GetAllocator());
+	hero.AddMember("Ïù¥Îèô Ïó¨Î∂Ä", movable, document.GetAllocator());
 
-	document.AddMember("øÎªÁ", hero, document.GetAllocator());
+	document.AddMember("Ïö©ÏÇ¨", hero, document.GetAllocator());
 
 	SaveData();
 }
@@ -105,11 +137,11 @@ void PrintValue(rapidjson::Value &value)
 	}
 	else if (type == rapidjson::Type::kTrueType)
 	{
-		printf("∞°¥…");
+		printf("Í∞ÄÎä•");
 	}
 	else if (type == rapidjson::Type::kFalseType)
 	{
-		printf("∫“∞°¥…");
+		printf("Î∂àÍ∞ÄÎä•");
 	}
 	else if (type == rapidjson::Type::kArrayType)
 	{

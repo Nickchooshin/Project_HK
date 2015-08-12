@@ -1,7 +1,7 @@
-#ifndef _DATA_H_
+﻿#ifndef _DATA_H_
 #define _DATA_H_
 
-#include <rapidjson/document.h>
+#include "../rapidjson/include/rapidjson/document.h"
 
 class Data
 {

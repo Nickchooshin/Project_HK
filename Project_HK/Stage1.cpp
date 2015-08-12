@@ -1,4 +1,4 @@
-#include "Stage1.h"
+ï»¿#include "Stage1.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -21,20 +21,20 @@ void Stage1::Ready()
 
 void Stage1::Progress()
 {
-	printf("¿ë»ç°¡ ³ªÅ¸³µ½À´Ï´Ù.\n"); Input();
+	printf("ìš©ì‚¬ê°€ ë‚˜íƒ€ë‚¬ìŠµë‹ˆë‹¤.\n"); Input();
 
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true)
+	if (hero["ì´ë™ ì—¬ë¶€"] == true)
 	{
-		printf("¿ë»ç´Â ¸¶À»À» ÇâÇØ °É¾î°¡±â ½ÃÀÛÇß½À´Ï´Ù.\n"); Input();
+		printf("ìš©ì‚¬ëŠ” ë§ˆì„ì„ í–¥í•´ ê±¸ì–´ê°€ê¸° ì‹œì‘í–ˆìŠµë‹ˆë‹¤.\n"); Input();
 		printf("Stage1 Clear!!!\n"); Input();
 
 		Clear();
 	}
 	else
 	{
-		printf("ÇÏÁö¸¸, ¿ë»ç´Â °ÉÀ» ¼ö ¾ø¾ú½À´Ï´Ù.\n"); Input();
+		printf("í•˜ì§€ë§Œ, ìš©ì‚¬ëŠ” ê±¸ì„ ìˆ˜ ì—†ì—ˆìŠµë‹ˆë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
 
@@ -43,9 +43,9 @@ void Stage1::Progress()
 
 void Stage1::Clear()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	hero["·¹º§"].SetInt(hero["·¹º§"].GetInt() + 1);
+	hero["ë ˆë²¨"].SetInt(hero["ë ˆë²¨"].GetInt() + 1);
 
 	Data::SaveData();
 }

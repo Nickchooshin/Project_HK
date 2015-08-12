@@ -1,4 +1,4 @@
-#ifndef _I_STAGE_H_
+﻿#ifndef _I_STAGE_H_
 #define _I_STAGE_H_
 
 class IStage

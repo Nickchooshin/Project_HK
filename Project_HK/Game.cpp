@@ -1,4 +1,4 @@
-#include "Game.h"
+ï»¿#include "Game.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -37,7 +37,7 @@ void Game::Run()
 		}
 		else
 		{
-			printf("Á¤»óÀûÀÌÁö ¾ÊÀº ¹æ¹ıÀ¸·Î Stage¿¡ Á¢±ÙÇß½À´Ï´Ù.\n");
+			printf("ì •ìƒì ì´ì§€ ì•Šì€ ë°©ë²•ìœ¼ë¡œ Stageì— ì ‘ê·¼í–ˆìŠµë‹ˆë‹¤.\n");
 			Input();
 		}
 	}
@@ -45,7 +45,7 @@ void Game::Run()
 
 void Game::LoadStage()
 {
-	rapidjson::Value &level = Data::document["¿ë»ç"]["·¹º§"];
+	rapidjson::Value &level = Data::document["ìš©ì‚¬"]["ë ˆë²¨"];
 
 	if (!level.IsInt())
 		return;
@@ -77,7 +77,7 @@ void Game::LoadStage()
 		break;
 
 	default:
-		printf("Àß¸øµÈ Stage·Î Á¢±ÙÇß°Å³ª, ¾ÆÁ÷ ±¸ÇöµÇÁö ¾ÊÀº Stage ÀÔ´Ï´Ù.\n"); Input();
+		printf("ì˜ëª»ëœ Stageë¡œ ì ‘ê·¼í–ˆê±°ë‚˜, ì•„ì§ êµ¬í˜„ë˜ì§€ ì•Šì€ Stage ì…ë‹ˆë‹¤.\n"); Input();
 		break;
 	}
 }

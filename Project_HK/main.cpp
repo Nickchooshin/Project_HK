@@ -1,8 +1,10 @@
-#include "Game.h"
+﻿#include "Game.h"
 
-void main()
+int main(int argc, char **argv)
 {
 	Game game;
 
 	game.Run();
+
+	return 0;
 }

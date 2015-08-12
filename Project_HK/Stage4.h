@@ -1,4 +1,4 @@
-#ifndef _STAGE_4_H_
+﻿#ifndef _STAGE_4_H_
 #define _STAGE_4_H_
 
 #include "IStage.h"

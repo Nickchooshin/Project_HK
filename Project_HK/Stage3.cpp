@@ -1,4 +1,4 @@
-#include "Stage3.h"
+ï»¿#include "Stage3.h"
 
 #include "Data.h"
 #include "Input.h"
@@ -12,10 +12,10 @@ Stage3::~Stage3()
 
 bool Stage3::Precondition()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (hero["ÀÌµ¿ ¿©ºÎ"] == true &&
-		hero["Àå¼Ò"] == "¸¶À»")
+	if (hero["ì´ë™ ì—¬ë¶€"] == true &&
+		hero["ì¥ì†Œ"] == "ë§ˆì„")
 	{
 		return true;
 	}
@@ -25,9 +25,9 @@ bool Stage3::Precondition()
 
 void Stage3::Ready()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	if (!hero.HasMember("°¡¹æ"))
+	if (!hero.HasMember("ê°€ë°©"))
 	{
 		rapidjson::Value bag;
 		bag.SetObject();
@@ -35,8 +35,8 @@ void Stage3::Ready()
 		rapidjson::Value money;
 		money = 0;
 
-		bag.AddMember("°ñµå", money, Data::document.GetAllocator());
-		hero.AddMember("°¡¹æ", bag, Data::document.GetAllocator());
+		bag.AddMember("ê³¨ë“œ", money, Data::document.GetAllocator());
+		hero.AddMember("ê°€ë°©", bag, Data::document.GetAllocator());
 
 		Data::SaveData();
 	}
@@ -44,31 +44,31 @@ void Stage3::Ready()
 
 void Stage3::Progress()
 {
-	printf("¹«»çÈ÷ ¸¶À»¿¡ µµÂøÇÑ ¿ë»ç´Â, ÁıÀ» ³ª¼³ ¶§ Ã¬°Ü¿Â 300°ñµå¸¦\n°¡¹æÀ» ²¨³» È®ÀÎÇØ º¸¾Ò½À´Ï´Ù.\n"); Input();
+	printf("ë¬´ì‚¬íˆ ë§ˆì„ì— ë„ì°©í•œ ìš©ì‚¬ëŠ”, ì§‘ì„ ë‚˜ì„¤ ë•Œ ì±™ê²¨ì˜¨ 300ê³¨ë“œë¥¼\nê°€ë°©ì„ êº¼ë‚´ í™•ì¸í•´ ë³´ì•˜ìŠµë‹ˆë‹¤.\n"); Input();
 
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
-	rapidjson::Value &bag = hero["°¡¹æ"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
+	rapidjson::Value &bag = hero["ê°€ë°©"];
 
-	if (bag["°ñµå"].GetInt() == 300)
+	if (bag["ê³¨ë“œ"].GetInt() == 300)
 	{
-		printf("¿ë»ç´Â °¡¹æÀÇ 300°ñµå¸¦ ¼Õ¿¡ Áã°í, »óÁ¡À¸·Î µé¾î°¬½À´Ï´Ù.\n"); Input();
+		printf("ìš©ì‚¬ëŠ” ê°€ë°©ì˜ 300ê³¨ë“œë¥¼ ì†ì— ì¥ê³ , ìƒì ìœ¼ë¡œ ë“¤ì–´ê°”ìŠµë‹ˆë‹¤.\n"); Input();
 		printf("Stage3 Clear!!!\n"); Input();
 
 		Clear();
 	}
-	else if (bag["°ñµå"].GetInt() == 0)
+	else if (bag["ê³¨ë“œ"].GetInt() == 0)
 	{
-		printf("±×·¯³ª, °¡¹æ ¼Ó¿¡ µ·Àº ÇÑ Ç¬µµ ¾ø¾ú½À´Ï´Ù.\n"); Input();
+		printf("ê·¸ëŸ¬ë‚˜, ê°€ë°© ì†ì— ëˆì€ í•œ í‘¼ë„ ì—†ì—ˆìŠµë‹ˆë‹¤.\n"); Input();
 		printf("End\n"); Input();
 	}
-	else if (bag["°ñµå"].GetInt() > 300)
+	else if (bag["ê³¨ë“œ"].GetInt() > 300)
 	{
-		printf("ÇÏÁö¸¸, °¡¹æ¿¡´Â ±×º¸´Ù ´õ ¸¹Àº %d°ñµå°¡ ÀÖ¾ú½À´Ï´Ù.\n", bag["°ñµå"].GetInt()); Input();
+		printf("í•˜ì§€ë§Œ, ê°€ë°©ì—ëŠ” ê·¸ë³´ë‹¤ ë” ë§ì€ %dê³¨ë“œê°€ ìˆì—ˆìŠµë‹ˆë‹¤.\n", bag["ê³¨ë“œ"].GetInt()); Input();
 		printf("End\n"); Input();
 	}
 	else
 	{
-		printf("ÇÏÁö¸¸, À¢ÀÏÀÎÁö 300°ñµå¿¡´Â ¹ÌÄ¡Áö ¸øÇÏ´Â %d°ñµå¸¸ ÀÖ¾ú½À´Ï´Ù.\n", bag["°ñµå"].GetInt()); Input();
+		printf("í•˜ì§€ë§Œ, ì›¬ì¼ì¸ì§€ 300ê³¨ë“œì—ëŠ” ë¯¸ì¹˜ì§€ ëª»í•˜ëŠ” %dê³¨ë“œë§Œ ìˆì—ˆìŠµë‹ˆë‹¤.\n", bag["ê³¨ë“œ"].GetInt()); Input();
 		printf("End\n"); Input();
 	}
 
@@ -78,10 +78,10 @@ void Stage3::Progress()
 
 void Stage3::Clear()
 {
-	rapidjson::Value &hero = Data::document["¿ë»ç"];
+	rapidjson::Value &hero = Data::document["ìš©ì‚¬"];
 
-	hero["·¹º§"].SetInt(hero["·¹º§"].GetInt() + 1);
-	hero["Àå¼Ò"].SetString("»óÁ¡");
+	hero["ë ˆë²¨"].SetInt(hero["ë ˆë²¨"].GetInt() + 1);
+	hero["ì¥ì†Œ"].SetString("ìƒì ");
 
 	Data::SaveData();
 }
